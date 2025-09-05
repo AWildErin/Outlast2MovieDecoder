@@ -34,9 +34,12 @@ internal class MovieLoader
 		reader.BaseStream.Seek( movie.Header.AudioOffset, SeekOrigin.Begin );
 		movie.AudioData = reader.ReadBytes( (int)movie.Header.AudioSize );
 
-		// @TODO TEMP, FIGURE OUT WHY THIS IS LIKE THIS
-		movie.AudioData[20] = 1;
-		movie.AudioData[21] = 0;
+		if (movie.AudioData is not null)
+		{
+			// @TODO TEMP, FIGURE OUT WHY THIS IS LIKE THIS
+			movie.AudioData[20] = 1;
+			movie.AudioData[21] = 0;
+		}
 
 		Log.Info( "Initial details:" );
 		Log.Info( $"Header: {string.Join( ", ", movie.Header.Header )}" );
